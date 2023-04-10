@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Stopwatch</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="test.html"></script>
+</head>
+<body>
+
+  <button id="stopbutton">Stop</button>
+
+
+  
+    <div class="container">
+        <div class="time">
+            <span class="digits" id="hour">00</span>
+            <span class="text">h</span>
+            <span class="digits" id="min">00</span>
+            <span class="text">m</span>
+            <span class="digits" id="sec">00</span>
+            <span class="text">s</span>
+            <span class="digits" id="count">00</span>
+        </div>
+
+        <hr>
+
+        <div class="buttons">
+            <Button class="btn" id="start" onclick="start()">START</Button>
+            <button class="btn" id="reset" onclick="reset()">RESET</button>
+        </div>
+    </div>
+</body>
+</html>
+
+<script>
+var hour = 0; //for hours initially assigned 0.
+var min = 0; //for minutes initially assigned 0.
+var sec = 0; //for seconds initially assigned 0.
+var count = 0; //for mili seconds initially assigned 0.
+
+var timer = false; // this is for the stop and reset button.
+var stopButton = document.createElement("button");
+stopButton.className = "btn";
+stopButton.innerHTML = "STOP";
+stopButton.onclick = stop;
+var startButton = document.getElementById("start");
+
+function start() {
+  timer = true;
+  startButton.parentNode.replaceChild(stopButton, startButton);
+  stopWatch();
+}
+
+function stop() {
+  timer = false;
+  stopButton.parentNode.replaceChild(startButton, stopButton);
+}
+
+function reset() {
+  timer = false;
+
+  hour = 0;
+  min = 0;
+  sec = 0;
+  count = 0;
+
+  document.getElementById("count").innerHTML = count;
+  document.getElementById("sec").innerHTML = sec;
+  document.getElementById("min").innerHTML = min;
+  document.getElementById("hour").innerHTML = hour;
+
+  if (stopButton.parentNode) {
+    stopButton.parentNode.replaceChild(startButton, stopButton);
+  }
+}
+
+function stopWatch() {
+  if (timer === true) {
+    count = count + 1;
+
+    if (count === 100) {
+      sec = sec + 1;
+      count = 0;
+    }
+    if (sec === 60) {
+      min = min + 1;
+      count = 0;
+      sec = 0;
+    }
+    if (min === 60) {
+      hour = hour + 1;
+      min = 0;
+      sec = 0;
+      count = 0;
+    }
+
+    document.getElementById("count").innerHTML = count;
+    document.getElementById("sec").innerHTML = sec;
+    document.getElementById("min").innerHTML = min;
+    document.getElementById("hour").innerHTML = hour;
+
+    setTimeout("stopWatch()", 10);
+  }
+}
+
+var stopbutton = document.getElementById("stopbutton");
+console.log(stopbutton);
+
+</script>
