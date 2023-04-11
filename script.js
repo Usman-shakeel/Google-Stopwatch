@@ -12,6 +12,7 @@ function start() {
     console.log(stopBtn);
     stopBtn.innerHTML = "STOP";
     stopBtn.onclick = stop;
+    stopBtn.style.backgroundColor = "red";
 }
 
 function stop(){
@@ -19,20 +20,26 @@ function stop(){
     var startBtn = document.getElementById("start");
     startBtn.innerHTML = "START";
     startBtn.onclick = start;
+    startBtn.style.backgroundColor = "#8ab4f8";
 }
 
 function reset() {
   timer = false;
+  var startBtn = document.getElementById("start");
+    startBtn.innerHTML = "START";
+    startBtn.onclick = start;
+    startBtn.style.backgroundColor = "#8ab4f8";
+
 
   hour = 0;
   min = 0;
   sec = 0;
   count = 0;
 
-  document.getElementById("count").innerHTML = count;
-  document.getElementById("sec").innerHTML = sec;
-  document.getElementById("min").innerHTML = min;
-  document.getElementById("hour").innerHTML = hour;
+  document.getElementById("count").innerHTML = "00";
+  document.getElementById("sec").innerHTML = "00";
+  document.getElementById("min").innerHTML = "00";
+  document.getElementById("hour").innerHTML = "00";
 }
 
 function stopWatch() {
@@ -55,10 +62,29 @@ function stopWatch() {
       count = 0;
     }
 
-    document.getElementById("count").innerHTML = count;
-    document.getElementById("sec").innerHTML = sec;
-    document.getElementById("min").innerHTML = min;
-    document.getElementById("hour").innerHTML = hour;
+    var countString = count;
+    var secString = sec;
+    var minString = min;
+    var hourString = hour;
+
+    if(count < 10){
+      countString = "0" + countString;
+    }
+    if(sec < 10){
+      secString = "0" + secString;
+    }
+    if(min < 10){
+      minString = "0" + minString;
+    }
+    if(hour < 10){
+      hourString = "0" + hourString;
+    }
+
+
+    document.getElementById("count").innerHTML = countString;
+    document.getElementById("sec").innerHTML = secString;
+    document.getElementById("min").innerHTML = minString;
+    document.getElementById("hour").innerHTML = hourString;
 
     setTimeout("stopWatch()", 10);
   }
